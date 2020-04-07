@@ -24,13 +24,16 @@
                 </li>
                 </ul>
             </div>
-        <!-- Search box and login -->
-            <form class="form-inline justify-content-end">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-secondary text-white my-2 my-sm-0" type="submit">Search</button>            
+        <!-- Search box -->
+            <form class="form-inline justify-content-end" action="../view/wine_search.php" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="wsearch">
+                <button class="btn btn-outline-secondary text-white my-2 my-sm-0" type="submit" name="search">Search</button>            
             </form>
+        <!-- end search box -->
+
+        <!-- Log In -->            
             <button class="btn btn-outline-secondary text-white my-2 my-sm-0 ml-1" type="submit" data-toggle="modal" data-target="#login">Log In</button>
-        <!-- end search box and login -->
+        <!-- end log in -->
         
         <!-- Model -->
             <div class="modal fade" id="login" role="dialog">

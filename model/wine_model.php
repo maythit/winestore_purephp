@@ -19,7 +19,7 @@ class Wine
         }
     // *** end add new wine *** //
 
-    // *** for datatables admin view *** //
+    // *** datatables from admin view *** //
         function join($id)
         {
             //var_dump($id);
@@ -28,14 +28,14 @@ class Wine
                 $sql = mysqli_query($this->conn,
                 "SELECT wine.id,wine.name,category.category_name 
                 FROM wine
-                INNER JOIN category ON wine.categoryid=category.category_id")
+                INNER JOIN category ON wine.categoryid = category.category_id")
                 or die(mysqli_error($this->conn));
             }
             return $sql;
         }
-    // *** end for datatables admin view *** //
+    // *** end datatables from admin view *** //
 
-    // *** from datatables update wine data *** //
+    // *** update wine data from datatables *** //
         function select($id)
         {
             if($id == null)
@@ -43,29 +43,29 @@ class Wine
                 "select * from `wine`");
             else 
                 return mysqli_query($this->conn,
-                "select * from `wine` where id=$id");
+                "select * from `wine` where id = $id");
         }
-    // *** end from datatables update wine data *** //
+    // *** end update wine data from datatables *** //
 
-    // *** update wine data *** //
+    // *** update wine data from admin view *** //
         function update($id,$name,$cateid,$desc,$img,$createdby,$updatedby,$createdat,$updatedat)
         {
             mysqli_query($this->conn,
             "UPDATE `wine` 
-            SET `name`='$name',`categoryid`=$cateid,`description`='$desc',
-                `image_url`='$img',`created_by`=$createdby,`updated_by`=$updatedby,
-                `created_at`='$createdat',`updated_at`='$updatedat'
-            WHERE `id`=$id") or die(mysqli_error($this->conn));
+                SET `name` = '$name',`categoryid` = $cateid,`description`='$desc',
+                `image_url` = '$img',`created_by` = $createdby,`updated_by` = $updatedby,
+                `created_at` = '$createdat',`updated_at` = '$updatedat'
+             WHERE `id` = $id") or die(mysqli_error($this->conn));
         }
-    // *** end update wine data *** //
+    // *** end update wine data from admin view *** //
 
-    // *** delete wine data *** //
+    // *** delete wine data from admin view *** //
         function delete($id)
         {
             mysqli_query($this->conn,
             "DELETE FROM `wine` WHERE `id`=$id") or die(mysqli_error($this->conn));
         }
-    // *** end delete wine data *** //
+    // *** end delete wine data from admin view *** //
 
     // *** wine product view from index.php *** //
         function showwine()
@@ -73,7 +73,7 @@ class Wine
             return mysqli_query($this->conn,
                     "SELECT wine.image_url,category.category_name,wine.name,wine.id 
                      FROM `wine` 
-                     INNER JOIN `category` ON category.category_id=wine.categoryid 
+                     INNER JOIN `category` ON category.category_id = wine.categoryid 
                      ORDER BY wine.id");
         }
     // *** end wine product view from index.php *** //
@@ -84,10 +84,21 @@ class Wine
             return mysqli_query($this->conn,
                     "SELECT wine.*,category.*
                      FROM wine 
-                     INNER JOIN category ON category.category_id=wine.categoryid 
+                     INNER JOIN category ON category.category_id = wine.categoryid 
                      WHERE wine.id=$id");
         }
     // *** end detail view *** //
+
+    // *** search box *** //
+        function search($name)
+        {
+            return mysqli_query($this->conn,
+                    "SELECT wine.*,category.* 
+                     FROM `wine` 
+                     INNER JOIN `category` ON category.category_id = wine.categoryid 
+                     WHERE `name` like '%$name%'");
+        }
+    // *** end search box *** //
     
 }
 ?>
