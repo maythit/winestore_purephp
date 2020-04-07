@@ -96,7 +96,8 @@ class Wine
                     "SELECT wine.*,category.* 
                      FROM `wine` 
                      INNER JOIN `category` ON category.category_id = wine.categoryid 
-                     WHERE `name` like '%$name%'");
+                     WHERE `name` like '%$name%' 
+                     or `category_name` like '%$name%'");
         }
     // *** end search box *** //
     
