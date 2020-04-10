@@ -100,6 +100,152 @@ class Wine
                      or `category_name` like '%$name%'");
         }
     // *** end search box *** //
+
+// *** wine category  *** //
+
+    // *** red wine view *** //
+        // *** select datatable for red wine view *** //
+            function rwineselect($id)
+            {
+                if($id == null)
+                    return mysqli_query($this->conn,
+                    "SELECT wine.*,category.* 
+                     FROM `wine` 
+                     INNER JOIN `category` 
+                     WHERE wine.categoryid=2 and category.category_id=2");
+                else 
+                    return mysqli_query($this->conn,
+                    "SELECT * 
+                     FROM `wine` 
+                     WHERE id=$id");     
+            }
+        // *** end select datatable for red wine view *** //
+
+        // *** update wine data for red wine view *** //
+            function rwineupdate($id,$name)
+            {
+                mysqli_query($this->conn,
+                "UPDATE `wine`
+                 SET `name`='$name'
+                 WHERE id=$id") or die(mysqli_error($this->conn));
+            }
+        // *** end update wine data for red wine view *** //
+    // *** end red wine view *** //
+        
+    // *** white wine view *** //
+        // *** select datatable for white wine view *** //
+            function wwineselect($id)
+            {
+                if($id == null)
+                    return mysqli_query($this->conn,
+                    "SELECT wine.name,wine.id,category.category_id 
+                     FROM `wine` 
+                     INNER JOIN `category` 
+                     WHERE wine.categoryid=1 and category.category_id=1");
+                else 
+                    return mysqli_query($this->conn,
+                    "SELECT * 
+                     FROM `wine` WHERE id=$id");     
+            }
+        // *** end select datatable for white wine view *** //
+
+        // *** update wine data for white wine view *** //
+            function wwineupdate($id,$name)
+            {
+                mysqli_query($this->conn,
+                "UPDATE `wine`
+                 SET `name`='$name'
+                 WHERE id=$id") or die(mysqli_error($this->conn));
+            }
+        // *** end update wine data for white wine view *** //
+    // *** end white wine view *** //
+
+    // *** rose wine view *** //
+        // *** select datatable for rose wine view *** //
+            function rosewselect($id)
+            {
+                if($id == null)
+                    return mysqli_query($this->conn,
+                    "SELECT wine.name,wine.id,category.category_id  
+                    FROM `wine` 
+                    INNER JOIN `category` 
+                    WHERE wine.categoryid=3 and category.category_id=3");
+                else 
+                    return mysqli_query($this->conn,
+                    "SELECT * 
+                    FROM `wine` 
+                    WHERE id=$id");     
+            }
+        // *** end select datatable for rose wine view *** //
+
+        // *** update wine data for rose wine view *** //
+            function rosewupdate($id,$name)
+            {
+                mysqli_query($this->conn,
+                "UPDATE `wine`
+                SET `name`='$name'
+                WHERE id=$id") or die(mysqli_error($this->conn));
+            }
+        // *** end update wine data for rose wine view *** //
+    // *** end rose wine view *** //
+
+    // *** dessert wine view *** //
+        // *** select datatable for dessert wine view *** //
+            function dwineselect($id)
+            {
+                if($id == null)
+                    return mysqli_query($this->conn,
+                    "SELECT wine.name,wine.id,category.category_id 
+                     FROM `wine` 
+                     INNER JOIN `category` 
+                     WHERE wine.categoryid=4 and category.category_id=4");
+                else 
+                    return mysqli_query($this->conn,
+                    "SELECT * 
+                        FROM `wine` WHERE id=$id");     
+            }
+        // *** end select datatable for dessert wine view *** //
+
+        // *** update wine data for dessert wine view *** //
+            function dwineupdate($id,$name)
+            {
+                mysqli_query($this->conn,
+                "UPDATE `wine`
+                 SET `name`='$name'
+                 WHERE id=$id") or die(mysqli_error($this->conn));
+            }
+        // *** end update wine data for dessert wine view *** //
+    // *** end dessert wine view *** //
+
+    // *** sparkling wine view *** //
+        // *** select datatable for sparkling wine view *** //
+            function swineselect($id)
+            {
+                if($id == null)
+                    return mysqli_query($this->conn,
+                    "SELECT wine.name,wine.id,category.category_id 
+                     FROM `wine` 
+                     INNER JOIN `category` 
+                     WHERE wine.categoryid=5 and category.category_id=5");
+                else 
+                    return mysqli_query($this->conn,
+                    "SELECT * 
+                        FROM `wine` WHERE id=$id");     
+            }
+        // *** end select datatable for sparkling wine view *** //
+
+        // *** update wine data for sparkling wine view *** //
+            function swineupdate($id,$name)
+            {
+                mysqli_query($this->conn,
+                "UPDATE `wine`
+                 SET `name`='$name'
+                 WHERE id=$id") or die(mysqli_error($this->conn));
+            }
+        // *** end update wine data for sparkling wine view *** //
+    // *** end sparkling wine view *** //
+
+// *** end wine category *** //
     
 }
 ?>

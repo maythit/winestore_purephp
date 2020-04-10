@@ -43,10 +43,10 @@ $(document).ready( function () {
                             <td><?= $data['name'] ?></td>
                             <td><?= $data['category_name'] ?></td>
                             <td>
-                                <a href="../view/wine_update_view.php?id=<?= $data['id'] ?>" >Update</a>
+                                <a href="../view/wine_update_view.php?updateid=<?= $data['id'] ?>" >Update</a>
                             </td>
                             <td>
-                                <a href="../controller/wine_controller.php?id=<?= $data['id'] ?>" >Delete</a>
+                                <a href="../controller/wine_controller.php?deleteid=<?= $data['id'] ?>" >Delete</a>
                             </td>
                         </tr>
                 <?php

@@ -13,11 +13,11 @@
                         Wine Category
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../view/redwine_view.php">Red Wine</a>
-                            <a class="dropdown-item" href="../view/whitewine_view.php">White Wine</a>
-                            <a class="dropdown-item" href="../view/rosewine_view.php">Rose Wine</a>
-                            <a class="dropdown-item" href="../view/dessertwine_view.php">Dessert Wine</a>
-                            <a class="dropdown-item" href="../view/sparklingwine_view.php">Sparkling Wine</a>
+                            <a class="dropdown-item" href="../view/redwine_view.php?red=redwine">Red Wine</a>
+                            <a class="dropdown-item" href="../view/whitewine_view.php?white=whitewine">White Wine</a>
+                            <a class="dropdown-item" href="../view/rosewine_view.php?rose=rosewine">Rose Wine</a>
+                            <a class="dropdown-item" href="../view/dessertwine_view.php?dessert=dessertwine">Dessert Wine</a>
+                            <a class="dropdown-item" href="../view/sparklingwine_view.php?sparkling=sparklingwine">Sparkling Wine</a>
                         </div>
                     </li>
                 <!-- end drop down list -->                

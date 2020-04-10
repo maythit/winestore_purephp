@@ -4,28 +4,99 @@ require_once '../model/dbconnect.php';
 require_once '../model/wine_model.php';
 require_once '../controller/file_upload.php';
 
-if(isset($_POST['add']))
-{
-    $insert = new WineController();
-    $insert->insert();
-}
-elseif(isset($_POST['update']))
-{
-    $update = new WineController();
-    $update->update();
-    //header("Location:../view/admin_view.php");
-}
-elseif(isset($_GET['id']))
-{
-    $delete = new WineController();
-    $delete->delete();
-    header("Location:../view/admin_view.php");
-}
-elseif(isset($_GET['detailID']))
-{
-    $detail = new WineController();
-    $detail->detail($_GET['detailID']);
-}
+$winecontroller = new WineController();
+
+// *** for add wine from admin view *** //
+    if(isset($_POST['add']))
+    {
+        $winecontroller->insert();
+    }
+// *** end for add wine from admin view *** //
+
+// *** for update wine from admin datatable *** //
+    elseif(isset($_POST['update']))
+    {
+        $winecontroller->update();
+    }
+// *** end for update wine from admin datatable *** //
+
+// *** for delete wine from admin datatable *** //
+    elseif(isset($_GET['deleteid']))
+    {
+        $winecontroller->delete();
+        header("Location:../view/admin_view.php");
+    }
+// *** end for delete wine from admin datatable *** //
+
+// *** for wine detail from wine_product view *** //
+    elseif(isset($_GET['detailID']))
+    {
+        $winecontroller->detail($_GET['detailID']);
+    }
+// *** end for wine detail from wine_product view *** //
+
+// *** for wine category *** //
+    // *** red wine update *** //
+        elseif(isset($_GET['redwine']))
+        {
+            $winecontroller->rwineselect("");   
+        }
+        elseif(isset($_POST['rwineupdate']))
+        {
+            $winecontroller->rwineupdate();
+            header("Location:../view/redwine_view.php");
+        }
+    // *** end red wine update *** //
+
+    // *** white wine update *** //
+        elseif(isset($_GET['whitewine']))
+        {
+            $winecontroller->wwineselect("");
+        }
+        elseif(isset($_POST['wwineupdate']))
+        {
+            $winecontroller->wwineupdate();
+            header("Location:../view/whitewine_view.php");
+        }
+    // *** end white wine update *** //
+
+    // *** rose wine update *** //
+        elseif(isset($_GET['rosewine']))
+        {
+            $winecontroller->rosewselect("");
+        }
+        elseif(isset($_POST['rosewupdate']))
+        {
+            $winecontroller->rosewupdate();
+            header("Location:../view/rosewine_view.php");
+        }
+    // *** end rose wine update *** //
+
+    // *** dessert wine update *** //
+        elseif(isset($_GET['dessertwine']))
+        {
+            $winecontroller->dwineselect("");
+        }
+        elseif(isset($_POST['dwineupdate']))
+        {
+            $winecontroller->dwineupdate();
+            header("Location:../view/dessertwine_view.php");
+        }
+    // *** end dessert wine udpate *** //
+
+    // *** sparkling wine update *** //
+        elseif(isset($_GET['sparklingwine']))
+        {
+            $winecontroller->swineselect("");
+        }
+        elseif(isset($_POST['swineupdate']))
+        {
+            $winecontroller->swineupdate();
+            header("Location:../view/sparklingwine_view.php");
+        }
+    // *** end sparkling wine update *** //
+
+// *** end for wine category *** //
 
 class WineController
 {
@@ -115,7 +186,7 @@ class WineController
     // *** delete wine data *** //
         function delete()
         {
-            $id = $_GET['id'];
+            $id = $_GET['deleteid'];
             $book_delete = new Wine();
             $book_delete->delete($id);
         }
@@ -137,6 +208,154 @@ class WineController
         }
     // *** end wine datail view *** //
 
+// *** wine category *** //
+
+    // *** red wine view *** //
+        // *** select datatable for red wine view *** //
+            function rwineselect($id)
+            {
+                $wine_model = new Wine();
+                $data = $wine_model->rwineselect($id);
+                return $data;
+            }
+        // *** end select datatable for red wine view *** //
+
+        // *** update wine data for red wine view *** //
+            function rwineupdate()
+            {
+                $id = $_POST['rwuid'];
+                $name = $_POST['wname'];
+                if($name == null)
+                {
+                    header("Location:../view/redwine_view.php");
+                }
+                else
+                {
+                    $wine_model = new Wine();
+                    $wine_model->rwineupdate($id,$name);    
+                    header("Location:../view/redwine_view.php");
+                }
+            }
+        // *** end update wine data for red wine view *** //
+    // *** end red wine view *** //
+    
+    // *** white wine view *** //
+        // *** select datatable for white wine view *** //
+            function wwineselect($id)
+            {
+                $wine_model = new Wine();
+                $data = $wine_model->wwineselect($id);
+                return $data;
+            }
+        // *** end select datatable for white wine view *** //
+
+        // *** update wine data for white wine view *** //
+            function wwineupdate()
+            {
+                $id = $_POST['wwuid'];
+                $name = $_POST['wname'];
+                if($name == null)
+                {
+                    header("Location:../view/whitewine_view.php");
+                }
+                else
+                {
+                    $wine_model = new Wine();
+                    $wine_model->wwineupdate($id,$name);    
+                    header("Location:../view/whitewine_view.php");
+                }
+            }
+        // *** end update wine data for white wine view *** //
+    // *** end white wine view *** //
+
+    // *** rose wine view *** //
+        // *** select datatable for rose wine view *** //
+            function rosewselect($id)
+            {
+                $wine_model = new Wine();
+                $data = $wine_model->rosewselect($id);
+                return $data;
+            }
+        // *** end select datatable for rose wine view *** //
+
+        // *** update wine data for rose wine view *** //
+            function rosewupdate()
+            {
+                $id = $_POST['rosewuid'];
+                $name = $_POST['wname'];
+                if($name == null)
+                {
+                    header("Location:../view/rosewine_view.php");
+                }
+                else
+                {
+                    $wine_model = new Wine();
+                    $wine_model->rosewupdate($id,$name);    
+                    header("Location:../view/rosewine_view.php");
+                }
+            }
+        // *** end update wine data for rose wine view *** //
+    // *** end rose wine view *** //
+
+    // *** dessert wine view *** //
+        // *** select datatable for dessert wine view *** //
+            function dwineselect($id)
+            {
+                $wine_model = new Wine();
+                $data = $wine_model->dwineselect($id);
+                return $data;
+            }
+        // *** end select datatable for dessert wine view *** //
+
+        // *** update wine data for dessert wine view *** //
+            function dwineupdate()
+            {
+                $id = $_POST['dwuid'];
+                $name = $_POST['wname'];
+                if($name == null)
+                {
+                    header("Location:../view/dessertwine_view.php");
+                }
+                else
+                {
+                    $wine_model = new Wine();
+                    $wine_model->dwineupdate($id,$name);    
+                    header("Location:../view/dessertwine_view.php");
+                }
+            }
+        // *** end update wine data for dessert wine view *** //
+    // *** end dessert wine view *** //
+
+    // *** sparkling wine view *** //
+        // *** select datatable for sparkling wine view *** //
+            function swineselect($id)
+            {
+                $wine_model = new Wine();
+                $data = $wine_model->swineselect($id);
+                return $data;
+            }
+        // *** end select datatable for sparkling wine view *** //
+
+        // *** update wine data for sparkling wine view *** //
+            function swineupdate()
+            {
+                $id = $_POST['swuid'];
+                $name = $_POST['wname'];
+                if($name == null)
+                {
+                    header("Location:../view/sparklingwine_view.php");
+                }
+                else
+                {
+                    $wine_model = new Wine();
+                    $wine_model->swineupdate($id,$name);    
+                    header("Location:../view/sparklingwine_view.php");
+                }
+            }
+        // *** end update data for sparkling wine view *** //
+    // *** end sparkling wine view *** //
+    
+// *** end wine category *** //
 }
 
 ?>

@@ -19,9 +19,9 @@ $wine = new WineController();
 
 $userid = $_SESSION['user_id'];
 
-if(isset($_GET['id']))
+if(isset($_GET['updateid']))
 {
-    $id = $_GET['id'];
+    $id = $_GET['updateid'];
     $update = mysqli_fetch_array($wine->select($id));
 }
 
