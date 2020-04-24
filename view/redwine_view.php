@@ -9,6 +9,7 @@ if(!isset($_SESSION['user_id']))
 {
     header("Location:../view/index.php");
 }
+$cateid = 2;
 $winecontroller = new WineController();
 $wupdate = "Update";
 $ud = "";
@@ -27,14 +28,15 @@ $(document).ready( function () {
             <div class="form-group row">
                 <label for="wname" class="col-sm-2 col-control-label">Red Wine Name</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="wname" placeholder="Red Wine Name"
+                    <input type="text" class="form-control" name="winename" placeholder="Red Wine Name"
                     <?php
-                        if(isset($_GET['rwuid']))
+                        if(isset($_GET['wineid']))
                         {
-                            $id = $_GET['rwuid'];
+                            $id = $_GET['wineid'];
                             $ud = "rwineupdate";
                             $wupdate = "rwineUpdate";
-                            $update_data = mysqli_fetch_array($winecontroller->rwineselect($id));
+                            var_dump($id);
+                            $update_data = mysqli_fetch_array($winecontroller->getWineByID($id));
                     ?>
                             value="<?= $update_data['name'] ?>"
                     <?php
@@ -45,7 +47,7 @@ $(document).ready( function () {
                         if($ud = "rwineupdate")
                         {                            
                     ?>
-                            <input type="hidden" name="rwuid" value="<?= $id ?>">
+                            <input type="hidden" name="wineid" value="<?= $id ?>">
                     <?php
                         }
                     ?>
@@ -63,12 +65,13 @@ $(document).ready( function () {
                 <tr>
                     <th>No.</th>
                     <th>Wine Name</th>
+                    <th>Cate ID</th>
                     <th>Update</th>
                 </tr>
             </thead>
             <tbody>
                 <?php                                        
-                    $sql = $winecontroller->rwineselect("");
+                    $sql = $winecontroller->getDataByCateID($cateid);               
                     $i = 1;
                     while($data = mysqli_fetch_array($sql))
                     {
@@ -76,8 +79,9 @@ $(document).ready( function () {
                         <tr>
                             <td><?= $i++ ?></td>
                             <td><?= $data['name'] ?></td>
+                            <td><?= $data['id'] ?></td>
                             <td>
-                                <a href="../view/redwine_view.php?rwuid=<?= $data['id'] ?>" >Update</a>
+                                <a href="../view/redwine_view.php?wineid=<?= $data['id'] ?>" >Update</a>
                             </td>
                         </tr>
                 <?php

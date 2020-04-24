@@ -9,6 +9,7 @@ if(!isset($_SESSION['user_id']))
 {
     header("Location:../view/index.php");
 }
+$cateid = 3;
 $winecontroller = new WineController();
 $wupdate = "Update";
 $ud = "";
@@ -27,14 +28,14 @@ $(document).ready( function () {
             <div class="form-group row">
                 <label for="wname" class="col-sm-2 col-control-label">Rose Wine Name</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="wname" placeholder="Rose Wine Name"
+                    <input type="text" class="form-control" name="winename" placeholder="Rose Wine Name"
                     <?php
-                        if(isset($_GET['rosewuid']))
+                        if(isset($_GET['wineid']))
                         {
-                            $id = $_GET['rosewuid'];
+                            $id = $_GET['wineid'];
                             $ud = "rosewupdate";
                             $wupdate = "rosewUpdate";
-                            $update_data = mysqli_fetch_array($winecontroller->rosewselect($id));
+                            $update_data = mysqli_fetch_array($winecontroller->getWineByID($id));
                     ?>
                             value="<?= $update_data['name'] ?>"
                     <?php
@@ -45,7 +46,7 @@ $(document).ready( function () {
                         if($ud = "rosewupdate")
                         {                            
                     ?>
-                            <input type="hidden" name="rosewuid" value="<?= $id ?>">
+                            <input type="hidden" name="wineid" value="<?= $id ?>">
                     <?php
                         }
                     ?>
@@ -68,7 +69,7 @@ $(document).ready( function () {
             </thead>
             <tbody>
                 <?php                                        
-                    $sql = $winecontroller->rosewselect("");
+                    $sql = $winecontroller->getDataByCateID($cateid);
                     $i = 1;
                     while($data = mysqli_fetch_array($sql))
                     {
@@ -77,7 +78,7 @@ $(document).ready( function () {
                             <td><?= $i++ ?></td>
                             <td><?= $data['name'] ?></td>
                             <td>
-                                <a href="../view/rosewine_view.php?rosewuid=<?= $data['id'] ?>" >Update</a>
+                                <a href="../view/rosewine_view.php?wineid=<?= $data['id'] ?>" >Update</a>
                             </td>
                         </tr>
                 <?php

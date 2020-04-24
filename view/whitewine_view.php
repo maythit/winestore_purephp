@@ -9,7 +9,8 @@ if(!isset($_SESSION['user_id']))
 {
     header("Location:../view/index.php");
 }
-$whitewine_controller = new WineController();
+$cateid = 1;
+$winecontroller = new WineController();
 $wupdate = "Update";
 $ud = "";
 ?>
@@ -27,14 +28,14 @@ $(document).ready( function () {
             <div class="form-group row">
                 <label for="wname" class="col-sm-2 col-control-label">White Wine Name</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="wname" placeholder="White Wine Name"
+                    <input type="text" class="form-control" name="winename" placeholder="White Wine Name"
                     <?php
-                        if(isset($_GET['wwuid']))
+                        if(isset($_GET['wineid']))
                         {
-                            $id = $_GET['wwuid'];
+                            $id = $_GET['wineid'];
                             $ud = "wwineupdate";
                             $wupdate = "wwineUpdate";
-                            $update_data = mysqli_fetch_array($whitewine_controller->wwineselect($id));
+                            $update_data = mysqli_fetch_array($winecontroller->getWineByID($id));
                     ?>
                             value="<?= $update_data['name'] ?>"
                     <?php
@@ -45,7 +46,7 @@ $(document).ready( function () {
                         if($ud = "wwineupdate")
                         {                            
                     ?>
-                            <input type="hidden" name="wwuid" value="<?= $id ?>">
+                            <input type="hidden" name="wineid" value="<?= $id ?>">
                     <?php
                         }
                     ?>
@@ -68,7 +69,7 @@ $(document).ready( function () {
             </thead>
             <tbody>
                 <?php                                        
-                    $sql = $whitewine_controller->wwineselect("");
+                    $sql = $winecontroller->getDataByCateID($cateid);
                     $i = 1;
                     while($data = mysqli_fetch_array($sql))
                     {
@@ -77,7 +78,7 @@ $(document).ready( function () {
                             <td><?= $i++ ?></td>
                             <td><?= $data['name'] ?></td>
                             <td>
-                                <a href="../view/whitewine_view.php?wwuid=<?= $data['id'] ?>" >Update</a>
+                                <a href="../view/whitewine_view.php?wineid=<?= $data['id'] ?>" >Update</a>
                             </td>
                         </tr>
                 <?php

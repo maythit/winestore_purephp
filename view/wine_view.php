@@ -121,3 +121,6 @@ $uby = $updatedby->select("");
     
 <!-- End Wine View Form -->
 </div>
+<?php
+    require_once 'footer.php';
+?>

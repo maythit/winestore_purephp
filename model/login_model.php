@@ -13,7 +13,7 @@ class Login
     function login($email,$pw)
     {       
         $user = mysqli_fetch_array(mysqli_query($this->conn,
-                "select * from `user` where email = '$email' and password = '$pw'"));
+                "select * from `user` where email = '$email' and password = '".sha1($pw) ."'"));
         return $user['id'];
     }
 }

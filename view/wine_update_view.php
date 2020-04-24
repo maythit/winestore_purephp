@@ -22,7 +22,7 @@ $userid = $_SESSION['user_id'];
 if(isset($_GET['updateid']))
 {
     $id = $_GET['updateid'];
-    $update = mysqli_fetch_array($wine->select($id));
+    $update = mysqli_fetch_array($wine->getWineByID($id));
 }
 
 ?>

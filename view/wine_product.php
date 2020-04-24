@@ -3,7 +3,7 @@
 require_once '../controller/wine_controller.php';
 
 $show = new WineController();
-$sql = $show->showwine();
+$sql = $show->getAllWine();
 
 ?>
 <!-- index page wine product -->

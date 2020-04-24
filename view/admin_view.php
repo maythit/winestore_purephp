@@ -33,7 +33,7 @@ $(document).ready( function () {
             <tbody>
                 <?php
                     $wine = new WineController();
-                    $sql = $wine->selectJoin("");
+                    $sql = $wine->getAllWine();
                     $i = 1;
                     while($data = mysqli_fetch_array($sql))
                     {
