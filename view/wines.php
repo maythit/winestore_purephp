@@ -4,33 +4,45 @@ require_once 'header.php';
 require_once 'navbar.php';
 require_once '../controller/wine_controller.php';
 
-$show = new WineController();
-$sql = $show->getAllWine();
-$total = $show->WineCount();
+$winecontroller = new WineController();
+$total = $winecontroller->WineCount();
 $result = $total['Total'];
-$per_page = 10;
+$per_page = 3;
 $num_of_page = ceil($result / $per_page);
-$offset = (($num_of_page - 1) * $per_page);
-$next_page = $num_of_page + 1;
-$pre_page = $num_of_page - 1;
 
+if(isset($_GET['page']))
+{
+    $page = $_GET['page'];
+}
+else{
+    $page = 1;
+}
+
+$offset = (($page - 1) * $per_page);
+$sql = $winecontroller->getWinesByPage($per_page,$offset);
+
+if($page != $num_of_page)
+{
+    $next_page = $page + 1;
+}
+else{
+    $next_page = -1;
+}
+if($page != 1)
+{
+    $pre_page = $page - 1;
+}
+else{
+    $pre_page = -1;
+}
+var_dump($next_page);
+var_dump($pre_page);
 ?>
 
 <!-- wines -->
     <div class="container-fluid bg-light">
-        <h1 class="text-center py-5">Wines</h1>
+        <h1 class="text-center py-3">Wines</h1>
 
-        <!-- pagination -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-        <!-- end pagination -->
         <!-- wine image view -->
             <div class="container">
                 <div class="row py-2">      
@@ -55,6 +67,29 @@ $pre_page = $num_of_page - 1;
                 </div>  
             </div>
         <!-- end wine image view -->
+
+        <!-- pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item <?= ($pre_page == -1)? "disabled":'' ?>">
+                    <a class="page-link" href="?page=<?= $pre_page ?>">Previous</a>
+                </li>
+                <?php
+                    for($i = 1;$i <= $num_of_page;$i++)
+                    {
+                ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                <?php
+                    }
+                ?>
+                <li class="page-item <?= ($next_page == -1)? "disabled":'' ?>">
+                    <a class="page-link" href="?page=<?= $next_page ?>">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- end pagination -->
 
     </div>
 <!-- end wines -->

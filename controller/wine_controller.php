@@ -177,44 +177,12 @@ class WineController
         $count = $wine_model->WineCount();
         return $count;
     }
-
-    // *** for datatables admin view *** //
-        function selectJoin($id)
-        {
-            $wine = new Wine();
-            $data = $wine->join($id);
-            return $data;
-        }
-    // *** end for datatables admin view *** //
-
-    // *** from datatables update wine data && wine detail view *** //
-        function select($id)
-        {
-            $wine = new Wine();
-            $data = $wine->select($id);
-            return $data;
-        }
-    // *** end from datatables update wine data && wine detail view *** //
-
-        
-    // *** end delete wine data *** //
-
-    // *** wine product view from index.php *** //
-        function showwine()
-        {
-            $data = new Wine();
-            return $data->showwine();
-        }
-    // *** end wine product view form index.php *** //
-
-    // *** wine detail view *** //
-        function detail($id)
-        {
-            $detail = new Wine();
-            return $detail->detailview($id);
-        }
-    // *** end wine datail view *** //
-
+    function getWinesByPage($limit,$offset)
+    {
+        $wine_model = new Wine();
+        $result = $wine_model->getWinesByPage($limit,$offset);
+        return $result;
+    }
 }
 
 ?>
